@@ -1,11 +1,16 @@
+import 'dart:developer';
+
 import 'package:car_wash_proj/bottom_nav/providers/home_provider.dart';
 import 'package:car_wash_proj/core/constants/constants.dart';
+import 'package:car_wash_proj/utils/color.dart';
 import 'package:car_wash_proj/utils/routes.dart';
 import 'package:car_wash_proj/utils/utils.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+
+import '../components/service_tile.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   static const id = AppRoutes.homeScreen;
@@ -25,7 +30,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   ];
   @override
   Widget build(BuildContext context) {
-    final homePro = ref.watch(homeProv);
+    log("built");
+    //final homePro = ref.watch(homeProv);
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -43,7 +49,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             // Tex
             // sbh(12),
             const Padding(
-              padding: EdgeInsets.all(16.0),
+              padding: EdgeInsets.only(left: 24.0, bottom: 0),
               child: Text(
                 "Good Morning",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
@@ -55,7 +61,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   return Image.network(images[index]);
                 }),
                 options: CarouselOptions(
-                  height: 200,
+                  height: 180,
                   aspectRatio: 16 / 9,
                   viewportFraction: 0.8,
                   initialPage: 0,
@@ -68,33 +74,47 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   enlargeCenterPage: true,
                   enlargeFactor: 0.3,
                   onPageChanged: (a, b) {
-                    homePro.configActiveImage(a);
+                    ref.read(homeProv).configActiveImage(a);
                   },
                   scrollDirection: Axis.horizontal,
                 )),
 
-            Center(
-              child: AnimatedSmoothIndicator(
-                effect: const ExpandingDotsEffect(
-                    expansionFactor: 3,
-                    dotHeight: 6,
-                    activeDotColor: Colors.blueGrey),
-                activeIndex: homePro.activeImage,
-                count: images.length,
-                curve: Curves.linear,
-              ),
+            Consumer(
+              builder: (context, ref, child) {
+                //  log("built simple indicator");
+                final homePros = ref.watch(homeProv);
+                return Center(
+                  child: AnimatedSmoothIndicator(
+                    effect: const ExpandingDotsEffect(
+                        expansionFactor: 3,
+                        dotHeight: 6,
+                        activeDotColor: Colors.blueGrey),
+                    activeIndex: homePros.activeImage,
+                    count: images.length,
+                    curve: Curves.linear,
+                  ),
+                );
+              },
             ),
             sbh(12),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              child: Text(
-                "Select Type of Car Wash",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
+            const ServiceTiles(),
+            Visibility(
+              visible: ref.watch(homeProv).selectedServ.contains('0'),
+              child: Container(
+                margin: const EdgeInsets.symmetric(horizontal: 16),
+                height: 40,
+                width: size.width,
+                decoration: BoxDecoration(
+                    color: blackColor, borderRadius: BorderRadius.circular(8)),
+                child: Center(
+                  child: Text(
+                    "Proceed",
+                    style: TextStyle(
+                        color: whiteColor, fontWeight: FontWeight.bold),
+                  ),
                 ),
               ),
-            ),
-            
+            )
           ],
         ),
       ),
