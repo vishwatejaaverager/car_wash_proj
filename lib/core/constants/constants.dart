@@ -9,4 +9,9 @@ class Constants {
   static const arow = 'assets/home/arow.png';
   static const carWash = 'assets/home/car_wash.png';
   static const interior = 'assets/home/interior.png';
+  static const deepInt = 'assets/home/deep_interior.png';
+  static const intWash = 'assets/home/interior_wash.png';
+  static const hour = 'assets/service/hourglass.png';
+  static const like = 'assets/service/like.png';
+  static const qstn = 'assets/service/curiosity.png';
 }

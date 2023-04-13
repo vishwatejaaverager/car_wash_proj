@@ -1,7 +1,9 @@
 import 'package:car_wash_proj/bottom_nav/screens/home_screen/screens/home_screen.dart';
+import 'package:car_wash_proj/bottom_nav/screens/service_detail/service_det_screen.dart';
 import 'package:car_wash_proj/features/auth/screens/login_screen.dart';
 import 'package:car_wash_proj/features/auth/screens/otp_screen.dart';
 import 'package:car_wash_proj/features/cars/companies/car_company.dart';
+import 'package:car_wash_proj/models/service_model.dart';
 
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
@@ -24,6 +26,11 @@ class AppRouter {
       return pageTransition(const CarCompanies());
     } else if (route.name == HomeScreen.id.path) {
       return pageTransition(const HomeScreen());
+    } else if (route.name == ServiceDetailScreen.id.path) {
+      ServiceModel serviceModel = route.arguments as ServiceModel;
+      return pageTransition(ServiceDetailScreen(
+        serviceModel: serviceModel,
+      ));
     } else if (route.name == CarModelScreen.id.path) {
       String id = route.arguments as String;
       return pageTransition(CarModelScreen(id));

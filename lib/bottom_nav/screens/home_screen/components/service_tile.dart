@@ -5,15 +5,27 @@ import '../../../../core/constants/constants.dart';
 import '../../../../utils/utils.dart';
 import '../../../providers/home_provider.dart';
 
-
-
 class ServiceTiles extends StatelessWidget {
+  final List services;
   const ServiceTiles({
     super.key,
+    required this.services,
   });
 
   @override
   Widget build(BuildContext context) {
+    List servicesName = [
+      "Carwash",
+      "Interior Cleaning",
+      "Carwash & Interior",
+      "Deep Interior Cleaning",
+    ];
+    List serviceImage = [
+      Constants.carWash,
+      Constants.interior,
+      Constants.intWash,
+      Constants.deepInt,
+    ];
     return Consumer(
       builder: (context, ref, child) {
         //  log("built tiles");
@@ -22,12 +34,12 @@ class ServiceTiles extends StatelessWidget {
           padding: const EdgeInsets.all(16.0),
           child: GridView.builder(
             shrinkWrap: true,
-            itemCount: 6,
+            itemCount: servicesName.length,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
+                crossAxisCount: 2,
                 mainAxisSpacing: 16,
-                crossAxisSpacing: 8,
-                childAspectRatio: 0.8),
+                crossAxisSpacing: 32,
+                childAspectRatio: 1.6),
             itemBuilder: (BuildContext context, int index) {
               return InkWell(
                 onTap: () {
@@ -46,18 +58,18 @@ class ServiceTiles extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Regular Car\nWash",
+                        services[index]['serviceName'],
                         style: TextStyle(
                             color: homePros.selectedServ[index] == ''
                                 ? Colors.black
                                 : Colors.white,
                             fontWeight: FontWeight.bold,
-                            fontSize: 12),
+                            fontSize: 14),
                       ),
                       sbh(16),
                       Image.asset(
-                        Constants.carWash,
-                        scale: 10,
+                        serviceImage[index],
+                        scale: index == 2 ? 8 : 10,
                         color: homePros.selectedServ[index] == ''
                             ? const Color(0xff0269eb)
                             : Colors.white,
