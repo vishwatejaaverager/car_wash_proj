@@ -58,6 +58,14 @@ dependencies:
   carousel_slider: ^4.2.1
   smooth_page_indicator: ^1.0.1
   firebase_app_check: ^0.1.2
+  chewie: ^1.4.0
+  video_player: ^2.6.1
+  easy_stepper: ^0.5.0
+  dotted_line: ^3.1.0
+  cupertino_stepper: ^0.2.1
+  expandable: ^5.0.1
+  flutter_expandable_widget: ^1.0.5
+ # another_stepper: ^1.2.2
 
 dev_dependencies:
   flutter_test:
@@ -85,6 +93,7 @@ flutter:
   assets:
     - assets/login/
     - assets/home/
+    - assets/service/
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

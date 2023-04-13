@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
       scaffoldMessengerKey: snackbarKey,
       onGenerateRoute: AppRouter.generateRoute,
       navigatorKey: Navigation.instance.navigationKey,
-      title: 'Flutter Demo',
+      title: 'Clean Wheels',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       textTheme: GoogleFonts.poppinsTextTheme()

@@ -1,8 +1,9 @@
 import 'dart:developer';
 
+import 'package:car_wash_proj/bottom_nav/navigation_drawer.dart';
 import 'package:car_wash_proj/bottom_nav/providers/home_provider.dart';
-import 'package:car_wash_proj/core/constants/constants.dart';
-import 'package:car_wash_proj/utils/color.dart';
+import 'package:car_wash_proj/bottom_nav/screens/service_detail/service_det_screen.dart';
+import 'package:car_wash_proj/models/service_model.dart';
 import 'package:car_wash_proj/utils/routes.dart';
 import 'package:car_wash_proj/utils/utils.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -10,6 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+import '../../../../utils/navigation/navigator.dart';
+import '../../../../utils/widget/button.dart';
 import '../components/service_tile.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
@@ -41,7 +44,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           elevation: 0,
           // title: const Text("Home"),
         ),
-        drawer: const NavigationDrawer(),
+        drawer: const CustomNavigation(),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -61,7 +64,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   return Image.network(images[index]);
                 }),
                 options: CarouselOptions(
-                  height: 180,
+                  height: 250,
                   aspectRatio: 16 / 9,
                   viewportFraction: 0.8,
                   initialPage: 0,
@@ -81,7 +84,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
             Consumer(
               builder: (context, ref, child) {
-                //  log("built simple indicator");
+                //    log("built simple indicator");
                 final homePros = ref.watch(homeProv);
                 return Center(
                   child: AnimatedSmoothIndicator(
@@ -97,151 +100,43 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               },
             ),
             sbh(12),
-            const ServiceTiles(),
-            Visibility(
-              visible: ref.watch(homeProv).selectedServ.contains('0'),
-              child: Container(
-                margin: const EdgeInsets.symmetric(horizontal: 16),
-                height: 40,
-                width: size.width,
-                decoration: BoxDecoration(
-                    color: blackColor, borderRadius: BorderRadius.circular(8)),
-                child: Center(
-                  child: Text(
-                    "Proceed",
-                    style: TextStyle(
-                        color: whiteColor, fontWeight: FontWeight.bold),
+            Consumer(builder: (context, ref, child) {
+              return ref.watch(services).when(data: (data) {
+                ref.read(homeProv).configServices(data);
+                List services = data;
+                return ServiceTiles(
+                  services: services,
+                );
+              }, error: (error, stackTrace) {
+                return const Text("Error");
+              }, loading: () {
+                return const CircularProgressIndicator();
+              });
+            }),
+
+            Consumer(
+              builder: (context, ref, child) {
+                final home = ref.watch(homeProv);
+                return Visibility(
+                  visible: ref.watch(homeProv).selectedServ.contains('0'),
+                  child: Button(
+                    text: "Proceed",
+                    onTap: () {
+                      ref.read(homeProv).configActiveImage(0);
+                      log(ref.read(homeProv).loadedServices.length.toString());
+
+                      ServiceModel serviceModel = ServiceModel.fromMap(
+                          home.loadedServices[home.selectedTile].data());
+                      Navigation.instance.navigateTo(
+                          ServiceDetailScreen.id.path,
+                          args: serviceModel);
+                    },
                   ),
-                ),
-              ),
+                );
+              },
             )
           ],
         ),
-      ),
-    );
-  }
-}
-
-class NavigationDrawer extends ConsumerWidget {
-  const NavigationDrawer({super.key});
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Container(
-      padding: const EdgeInsets.only(top: 48, left: 0, right: 0),
-      height: double.infinity,
-      width: size.width / 1.3,
-      color: Colors.white,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Card(
-            elevation: 2,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16),
-              child: ListTile(
-                leading: CircleAvatar(
-                  // radius: 40,
-                  child: Image.network(
-                      "https://firebasestorage.googleapis.com/v0/b/carwash-b17c6.appspot.com/o/car_companies%2Fprofile.png?alt=media&token=e9eda448-92a3-4e1b-9e7b-96bb472bfc3f"),
-                ),
-                title: const Text(
-                  "Vishwa",
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                subtitle: const Text(
-                  "+91 8712066555",
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600, color: Colors.black),
-                ),
-                trailing: Image.asset(
-                  Constants.arow,
-                  scale: 24,
-                  color: Colors.blue,
-                ),
-              ),
-            ),
-          ),
-          sbh(12),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 48),
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Image.asset(
-                      Constants.clock,
-                      scale: 24,
-                      color: Colors.grey,
-                    ),
-                    sbw(24),
-                    const Text(
-                      "My Requests",
-                      style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.black,
-                          fontWeight: FontWeight.w500),
-                    )
-                  ],
-                ),
-                sbh(24),
-                Row(
-                  children: [
-                    Image.asset(
-                      Constants.card,
-                      scale: 20,
-                      color: Colors.blueGrey,
-                    ),
-                    sbw(24),
-                    const Text(
-                      "Payments",
-                      style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.black,
-                          fontWeight: FontWeight.w500),
-                    )
-                  ],
-                ),
-                sbh(24),
-                Row(
-                  children: [
-                    Image.asset(
-                      Constants.shield,
-                      scale: 20,
-                      color: Colors.blueGrey,
-                    ),
-                    sbw(24),
-                    const Text(
-                      "Support",
-                      style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.black,
-                          fontWeight: FontWeight.w500),
-                    )
-                  ],
-                ),
-                sbh(24),
-                Row(
-                  children: [
-                    Image.asset(
-                      Constants.info,
-                      scale: 20,
-                      color: Colors.blueGrey,
-                    ),
-                    sbw(24),
-                    const Text(
-                      "About",
-                      style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.black,
-                          fontWeight: FontWeight.w500),
-                    )
-                  ],
-                )
-              ],
-            ),
-          )
-        ],
       ),
     );
   }
