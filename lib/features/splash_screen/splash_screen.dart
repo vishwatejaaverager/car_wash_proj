@@ -1,4 +1,4 @@
-import 'package:car_wash_proj/bottom_nav/screens/home_screen/screens/home_screen.dart';
+import 'package:car_wash_proj/bottom_nav/screens/home_screen.dart';
 import 'package:car_wash_proj/features/auth/screens/login_screen.dart';
 import 'package:car_wash_proj/utils/navigation/navigator.dart';
 import 'package:car_wash_proj/utils/streams.dart';

@@ -1,6 +1,6 @@
-import 'package:car_wash_proj/bottom_nav/screens/home_screen/screens/home_screen.dart';
+import 'package:car_wash_proj/bottom_nav/screens/home_screen.dart';
 import 'package:car_wash_proj/bottom_nav/screens/scedule_screen.dart';
-import 'package:car_wash_proj/bottom_nav/screens/service_detail/service_det_screen.dart';
+import 'package:car_wash_proj/bottom_nav/screens/service_det_screen.dart';
 import 'package:car_wash_proj/features/auth/screens/login_screen.dart';
 import 'package:car_wash_proj/features/auth/screens/otp_screen.dart';
 import 'package:car_wash_proj/features/cars/companies/car_company.dart';

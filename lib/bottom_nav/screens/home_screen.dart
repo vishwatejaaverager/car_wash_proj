@@ -2,7 +2,8 @@ import 'dart:developer';
 
 import 'package:car_wash_proj/bottom_nav/navigation_drawer.dart';
 import 'package:car_wash_proj/bottom_nav/providers/home_provider.dart';
-import 'package:car_wash_proj/bottom_nav/screens/service_detail/service_det_screen.dart';
+import 'package:car_wash_proj/bottom_nav/screens/service_det_screen.dart';
+
 import 'package:car_wash_proj/models/service_model.dart';
 import 'package:car_wash_proj/utils/routes.dart';
 import 'package:car_wash_proj/utils/utils.dart';
@@ -11,8 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import '../../../../utils/navigation/navigator.dart';
-import '../../../../utils/widget/button.dart';
+import '../../utils/navigation/navigator.dart';
+import '../../utils/widget/button.dart';
 import '../components/service_tile.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {

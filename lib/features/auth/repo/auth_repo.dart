@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:car_wash_proj/bottom_nav/screens/home_screen/screens/home_screen.dart';
+import 'package:car_wash_proj/bottom_nav/screens/home_screen.dart';
 import 'package:car_wash_proj/features/auth/screens/otp_screen.dart';
 import 'package:car_wash_proj/models/car_model.dart';
 import 'package:car_wash_proj/models/user_model.dart';

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../core/constants/constants.dart';
-import '../../../../utils/utils.dart';
-import '../../../providers/home_provider.dart';
+import '../../core/constants/constants.dart';
+import '../../utils/utils.dart';
+import '../providers/home_provider.dart';
 
 class ServiceTiles extends StatelessWidget {
   final List services;

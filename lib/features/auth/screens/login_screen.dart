@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:car_wash_proj/features/auth/controllers/auth_provider.dart';
-import 'package:car_wash_proj/main.dart';
 import 'package:car_wash_proj/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -50,7 +49,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     padding: EdgeInsets.all(16.0),
                     child: Text(
                       "Lets Shine :)",
-                      style: TextStyle(fontWeight: FontWeight.w900, fontSize: 24),
+                      style:
+                          TextStyle(fontWeight: FontWeight.w900, fontSize: 24),
                     ),
                   ),
                 ),
@@ -60,7 +60,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     controller: phoneController,
                     decoration: const InputDecoration(
                         icon: Text("+91"),
-                       //suffix: Icon(Icons.call),
+                        //suffix: Icon(Icons.call),
                         hintText: "Enter Your Mobile Number    "),
                   ),
                 ),
