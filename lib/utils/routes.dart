@@ -4,6 +4,7 @@ enum AppRoutes {
   carModelsScreen("car_models"),
   homeScreen("home_screen"),
   serviceDetScreen('service_det_screen'),
+  scheduleScreen('schedule_screen'),
   carCompScreen("car_comp_screem");
 
   const AppRoutes(this.path);
