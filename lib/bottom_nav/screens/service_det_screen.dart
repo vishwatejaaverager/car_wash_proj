@@ -14,8 +14,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:video_player/video_player.dart';
 
-import '../../../core/constants/constants.dart';
-import '../../providers/home_provider.dart';
+import '../../core/constants/constants.dart';
+import '../providers/home_provider.dart';
 
 class ServiceDetailScreen extends ConsumerStatefulWidget {
   final ServiceModel serviceModel;
