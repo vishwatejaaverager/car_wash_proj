@@ -41,6 +41,7 @@ class MyApp extends StatelessWidget {
       textTheme: GoogleFonts.poppinsTextTheme()
       ),
       home: const AuthChecker(),
+      
     );
   }
 }

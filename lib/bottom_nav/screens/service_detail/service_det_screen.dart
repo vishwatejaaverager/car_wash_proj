@@ -1,8 +1,10 @@
 import 'dart:developer';
 
 import 'package:car_wash_proj/bottom_nav/navigation_drawer.dart';
+import 'package:car_wash_proj/bottom_nav/screens/scedule_screen.dart';
 import 'package:car_wash_proj/models/service_model.dart';
 import 'package:car_wash_proj/utils/color.dart';
+import 'package:car_wash_proj/utils/navigation/navigator.dart';
 import 'package:car_wash_proj/utils/routes.dart';
 import 'package:car_wash_proj/utils/utils.dart';
 import 'package:car_wash_proj/utils/widget/button.dart';
@@ -76,7 +78,11 @@ class _ServiceDetailScreenState extends ConsumerState<ServiceDetailScreen> {
         padding: const EdgeInsets.all(8),
         child: Button(
           text: "Book",
-          onTap: () {},
+          onTap: () {
+            log("clicked");
+            Navigation.instance
+                .navigateTo(ScheduleScreen.id.path, args: widget.serviceModel);
+          },
         ),
       ),
       appBar: AppBar(
@@ -230,8 +236,8 @@ class _ServiceDetailScreenState extends ConsumerState<ServiceDetailScreen> {
                         ),
                         sbw(12),
                         SizedBox(
-                          width: size.width/1.3,
-                          child: Text(widget.serviceModel.included[index])),
+                            width: size.width / 1.3,
+                            child: Text(widget.serviceModel.included[index])),
                       ],
                     ),
                   );
