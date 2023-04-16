@@ -1,15 +1,16 @@
 import 'dart:developer';
 
+import 'package:car_wash_proj/bottom_nav/providers/booking_provider.dart';
 import 'package:easy_stepper/easy_stepper.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
-final bookProvider = ChangeNotifierProvider((ref) {
-  return BookingProvider();
+final slotProvider = ChangeNotifierProvider((ref) {
+  return SlotProvider();
 });
 
-class BookingProvider with ChangeNotifier {
+class SlotProvider with ChangeNotifier {
   final List<Map<String, dynamic>> _timings = [
     {
       'time': '10:00 - 11:00',
@@ -118,11 +119,16 @@ class BookingProvider with ChangeNotifier {
     log(filtered.toString());
   }
 
-  selectSlot(int ii) {
+  selectSlot(int ii, WidgetRef ref) {
     for (var i = 0; i < _timings.length; i++) {
       _timings[i]['selected'] = false;
     }
     _timings[ii]['selected'] = true;
-    notifyListeners();
+    ref.read(bookingProv).configSlotTiming(
+        {'time': _timings[ii]['time'], 'zone': _timings[ii]['zone']});
+
+    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+      notifyListeners();
+    });
   }
 }

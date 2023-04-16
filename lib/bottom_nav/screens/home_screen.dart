@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:car_wash_proj/bottom_nav/navigation_drawer.dart';
+import 'package:car_wash_proj/bottom_nav/providers/booking_provider.dart';
 import 'package:car_wash_proj/bottom_nav/providers/home_provider.dart';
 import 'package:car_wash_proj/bottom_nav/screens/service_det_screen.dart';
 
@@ -128,6 +129,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
                       ServiceModel serviceModel = ServiceModel.fromMap(
                           home.loadedServices[home.selectedTile].data());
+                      ref.read(bookingProv).configServiceModel(serviceModel);
                       Navigation.instance.navigateTo(
                           ServiceDetailScreen.id.path,
                           args: serviceModel);

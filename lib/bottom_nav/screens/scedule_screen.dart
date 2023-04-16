@@ -36,7 +36,7 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen> {
   }
 
   configDate() {
-    ref.read(bookProvider).getFiltered(DateTime.now());
+    ref.read(slotProvider).getFiltered(DateTime.now());
   }
 
   @override
@@ -71,7 +71,6 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen> {
           },
         ),
       ),
-      
       drawer: const CustomNavigation(),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -143,14 +142,14 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen> {
               widgetWidth: MediaQuery.of(context).size.width,
               datePickerController: _datePickerController,
               onValueSelected: (date) {
-                ref.read(bookProvider).getFiltered(date);
+                ref.read(slotProvider).getFiltered(date);
                 // log('selected = ${date.toIso8601String()}');
               },
             ),
           ),
           Consumer(
             builder: (context, ref, child) {
-              final prov = ref.watch(bookProvider);
+              final prov = ref.watch(slotProvider);
               return Column(
                 children: [
                   Padding(
@@ -167,7 +166,7 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen> {
                       itemBuilder: (context, index) {
                         return InkWell(
                           onTap: () {
-                            prov.selectSlot(index);
+                            prov.selectSlot(index, ref);
                           },
                           child: Container(
                             decoration: BoxDecoration(
