@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:car_wash_proj/bottom_nav/navigation_drawer.dart';
-import 'package:car_wash_proj/bottom_nav/providers/booking_provider.dart';
+import 'package:car_wash_proj/bottom_nav/providers/slots_provider.dart';
+import 'package:car_wash_proj/bottom_nav/screens/location_screen.dart';
 import 'package:car_wash_proj/core/constants/constants.dart';
 import 'package:car_wash_proj/models/service_model.dart';
 import 'package:car_wash_proj/utils/color.dart';
@@ -12,6 +15,7 @@ import 'dart:math' as math;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:horizontal_center_date_picker/datepicker_controller.dart';
 import 'package:horizontal_center_date_picker/horizontal_date_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class ScheduleScreen extends ConsumerStatefulWidget {
   final ServiceModel serviceModel;
@@ -45,16 +49,29 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen> {
         // title: const Text("Home"),
       ),
       bottomSheet: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8),
+        padding: const EdgeInsets.all(8),
         child: Button(
-          text: "choose location",
-          onTap: () {
-            //  prov.filterTimes(DateTime.now());
-            //   prov.filter();
-            // prov.createSlots(DateTime.now());
+          text: "Choose Location",
+          onTap: () async {
+            //log("message");
+            try {
+              await Permission.location.request().then((value) {
+                if (value == PermissionStatus.granted) {
+                  Navigation.instance.navigateTo(LocationScreen.id.path);
+                } else if (value == PermissionStatus.permanentlyDenied) {
+                  appToast(
+                      "You have permenantly denied give permssion from settings");
+                } else if (value == PermissionStatus.denied) {
+                  appToast("Please do grant location service");
+                }
+              });
+            } catch (e) {
+              log(e.toString());
+            }
           },
         ),
       ),
+      
       drawer: const CustomNavigation(),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
