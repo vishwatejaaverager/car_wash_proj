@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:car_wash_proj/bottom_nav/providers/booking_provider.dart';
 import 'package:car_wash_proj/bottom_nav/providers/maps_provider.dart';
+import 'package:car_wash_proj/bottom_nav/screens/payment_screen.dart';
 import 'package:car_wash_proj/utils/color.dart';
 import 'package:car_wash_proj/utils/routes.dart';
 import 'package:car_wash_proj/utils/utils.dart';
@@ -89,7 +91,7 @@ class _LocationScreenState extends ConsumerState<LocationScreen> {
                           return showModalBottomSheet(
                             context: context,
                             builder: (context) {
-                              return LocationBottomSheet(address: value);
+                              return LocBottomSheet(address: value);
                             },
                           );
                         });
@@ -145,7 +147,7 @@ class _LocationScreenState extends ConsumerState<LocationScreen> {
                                 return showModalBottomSheet(
                                   context: context,
                                   builder: (context) {
-                                    return LocationBottomSheet(address: value);
+                                    return LocBottomSheet(address: value);
                                   },
                                 );
                               });
@@ -177,12 +179,12 @@ class _LocationScreenState extends ConsumerState<LocationScreen> {
   }
 }
 
-class LocationBottomSheet extends StatelessWidget {
+class LocBottomSheet extends ConsumerWidget {
   final Address address;
-  const LocationBottomSheet({super.key, required this.address});
+  const LocBottomSheet({super.key, required this.address});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -222,7 +224,14 @@ class LocationBottomSheet extends StatelessWidget {
             ],
           ),
         ),
-        Button(text: 'Confirm Location', onTap: () {}),
+        Button(
+            text: 'Confirm Location',
+            onTap: () {
+              LatLng latLng = ref.read(mapsProvider).latlng;
+              ref.read(bookingProv).configLatlng(latLng);
+              ref.read(bookingProv).configPlaceDes(address.addressLine!);
+              Navigation.instance.navigateTo(PaymentScreen.id.path);
+            }),
         sbh(12)
       ],
     );

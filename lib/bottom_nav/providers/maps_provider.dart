@@ -91,7 +91,7 @@ class MapsProvider with ChangeNotifier {
       String a, Completer<GoogleMapController> completer) async {
     const apiKey = 'AIzaSyD2KTqh2cJBIeMKfb6aB_-hgWRO5hpVsuo';
     final LocatitonGeocoder geocoder = LocatitonGeocoder(apiKey);
-    var b = await geocoder.findAddressesFromQuery(a).then((value) async {
+    await geocoder.findAddressesFromQuery(a).then((value) async {
       Navigation.instance.pushBack();
       _latLng = LatLng(
           value[0].coordinates.latitude!, value[0].coordinates.longitude!);
