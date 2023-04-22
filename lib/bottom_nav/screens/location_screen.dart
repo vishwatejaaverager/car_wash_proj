@@ -3,7 +3,10 @@ import 'dart:developer';
 
 import 'package:car_wash_proj/bottom_nav/providers/booking_provider.dart';
 import 'package:car_wash_proj/bottom_nav/providers/maps_provider.dart';
+import 'package:car_wash_proj/bottom_nav/screens/order_stat_screen.dart';
 import 'package:car_wash_proj/bottom_nav/screens/payment_screen.dart';
+import 'package:car_wash_proj/models/order_model.dart';
+import 'package:car_wash_proj/models/service_model.dart';
 import 'package:car_wash_proj/utils/color.dart';
 import 'package:car_wash_proj/utils/routes.dart';
 import 'package:car_wash_proj/utils/utils.dart';
@@ -230,7 +233,25 @@ class LocBottomSheet extends ConsumerWidget {
               LatLng latLng = ref.read(mapsProvider).latlng;
               ref.read(bookingProv).configLatlng(latLng);
               ref.read(bookingProv).configPlaceDes(address.addressLine!);
-              Navigation.instance.navigateTo(PaymentScreen.id.path);
+              ServiceModel serviceModel = ref.read(bookingProv).serviceModel!;
+              
+              var id = DateTime.now().microsecondsSinceEpoch;
+
+              OrderModel orderModel = OrderModel(
+                  orderId: id.toString(),
+                  orderName: serviceModel.serviceName,
+                  orderTime: ref.read(bookingProv).slotTiming,
+                  orderActualPrice: serviceModel.serviceActualPrice,
+                  orderPrice: serviceModel.servicePrice,
+                  orderDate: ref.read(bookingProv).date,
+                  orderStat: 'ordered',
+                  orderLat: latLng.latitude.toString(),
+                  orderLong: latLng.longitude.toString(),
+                  orderLoc: address.addressLine!);
+
+              ref.read(bookingProv).configOrderModel(orderModel);
+              ref.read(bookingProv).createOrder(orderModel);
+              Navigation.instance.navigateTo(OrderStatusScreen.id.path);
             }),
         sbh(12)
       ],

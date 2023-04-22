@@ -3,6 +3,8 @@ enum AppRoutes {
   loginScreen("login_screen"),
   carModelsScreen("car_models"),
   homeScreen("home_screen"),
+  orderStatScreen('order_stat_screen'),
+  ordersScreen('orders_screen'),
   serviceDetScreen('service_det_screen'),
   scheduleScreen('schedule_screen'),
   locationScreen('location_screen'),

@@ -1,10 +1,12 @@
+import 'package:car_wash_proj/bottom_nav/screens/order_stat_screen.dart';
+import 'package:car_wash_proj/bottom_nav/screens/orders_screen.dart';
 import 'package:car_wash_proj/utils/color.dart';
+import 'package:car_wash_proj/utils/navigation/navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../core/constants/constants.dart';
 import '../utils/utils.dart';
-
 
 class CustomNavigation extends ConsumerWidget {
   const CustomNavigation({super.key});
@@ -51,22 +53,27 @@ class CustomNavigation extends ConsumerWidget {
             padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 48),
             child: Column(
               children: [
-                Row(
-                  children: [
-                    Image.asset(
-                      Constants.clock,
-                      scale: 24,
-                      color: Colors.grey,
-                    ),
-                    sbw(24),
-                    const Text(
-                      "My Requests",
-                      style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.black,
-                          fontWeight: FontWeight.w500),
-                    )
-                  ],
+                InkWell(
+                  onTap: () {
+                    Navigation.instance.navigateTo(OrderStatusScreen.id.path,args: '1681630335784790');
+                  },
+                  child: Row(
+                    children: [
+                      Image.asset(
+                        Constants.clock,
+                        scale: 24,
+                        color: Colors.grey,
+                      ),
+                      sbw(24),
+                      const Text(
+                        "My Requests",
+                        style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w500),
+                      )
+                    ],
+                  ),
                 ),
                 sbh(24),
                 Row(

@@ -1,5 +1,7 @@
+import 'package:car_wash_proj/bottom_nav/providers/booking_provider.dart';
 import 'package:car_wash_proj/bottom_nav/screens/home_screen.dart';
 import 'package:car_wash_proj/features/auth/screens/login_screen.dart';
+import 'package:car_wash_proj/models/user_model.dart';
 import 'package:car_wash_proj/utils/navigation/navigator.dart';
 import 'package:car_wash_proj/utils/streams.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +24,9 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
 
   Future checkUser(String id) async {
     Streams().userQuery.where("userId", isEqualTo: id).get().then((value) {
+      ref
+          .read(bookingProv)
+          .configUserModel(UserModel.fromMap(value.docs[0].data()));
       if (value.docs.isNotEmpty) {
         Navigation.instance.pushAndRemoveUntil(HomeScreen.id.path);
       } else {

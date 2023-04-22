@@ -11,6 +11,7 @@ import 'package:car_wash_proj/utils/utils.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:logger/logger.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../utils/navigation/navigator.dart';
@@ -35,7 +36,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   ];
   @override
   Widget build(BuildContext context) {
-    log("built");
+    Logger().i("built");
     //final homePro = ref.watch(homeProv);
     return SafeArea(
       child: Scaffold(

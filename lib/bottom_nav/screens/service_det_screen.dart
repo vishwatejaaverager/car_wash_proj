@@ -273,7 +273,7 @@ class _ServiceDetailScreenState extends ConsumerState<ServiceDetailScreen> {
                       isActive: true,
                       content: SizedBox()),
                   Step(
-                      title: Text("Waching"),
+                      title: Text("Washing"),
                       subtitle: Text('Agent Will Wash Your Car in 30mins '),
                       state: StepState.indexed,
                       isActive: true,

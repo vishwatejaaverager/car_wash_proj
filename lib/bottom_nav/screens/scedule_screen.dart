@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:car_wash_proj/bottom_nav/navigation_drawer.dart';
+import 'package:car_wash_proj/bottom_nav/providers/booking_provider.dart';
 import 'package:car_wash_proj/bottom_nav/providers/slots_provider.dart';
 import 'package:car_wash_proj/bottom_nav/screens/location_screen.dart';
 import 'package:car_wash_proj/core/constants/constants.dart';
@@ -15,6 +16,7 @@ import 'dart:math' as math;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:horizontal_center_date_picker/datepicker_controller.dart';
 import 'package:horizontal_center_date_picker/horizontal_date_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class ScheduleScreen extends ConsumerStatefulWidget {
@@ -143,6 +145,9 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen> {
               datePickerController: _datePickerController,
               onValueSelected: (date) {
                 ref.read(slotProvider).getFiltered(date);
+                ref
+                    .read(bookingProv)
+                    .configDate(DateFormat(DateFormat.MONTH_DAY).format(date));
                 // log('selected = ${date.toIso8601String()}');
               },
             ),
