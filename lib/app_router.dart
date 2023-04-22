@@ -1,5 +1,7 @@
 import 'package:car_wash_proj/bottom_nav/screens/home_screen.dart';
 import 'package:car_wash_proj/bottom_nav/screens/location_screen.dart';
+import 'package:car_wash_proj/bottom_nav/screens/order_stat_screen.dart';
+import 'package:car_wash_proj/bottom_nav/screens/orders_screen.dart';
 import 'package:car_wash_proj/bottom_nav/screens/payment_screen.dart';
 import 'package:car_wash_proj/bottom_nav/screens/scedule_screen.dart';
 import 'package:car_wash_proj/bottom_nav/screens/service_det_screen.dart';
@@ -31,6 +33,11 @@ class AppRouter {
       return pageTransition(const PaymentScreen());
     } else if (route.name == LocationScreen.id.path) {
       return pageTransition(const LocationScreen());
+    } else if (route.name == OrdersScreen.id.path) {
+      return pageTransition(const OrdersScreen());
+    } else if (route.name == OrderStatusScreen.id.path) {
+      String orderId = route.arguments as String;
+      return pageTransition( OrderStatusScreen(orderId : orderId));
     } else if (route.name == ScheduleScreen.id.path) {
       ServiceModel serviceModel = route.arguments as ServiceModel;
       return pageTransition(ScheduleScreen(
