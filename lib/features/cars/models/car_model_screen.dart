@@ -1,8 +1,10 @@
 import 'dart:developer';
 
+import 'package:car_wash_proj/bottom_nav/providers/booking_provider.dart';
 import 'package:car_wash_proj/features/cars/components/car_appbar.dart';
 import 'package:car_wash_proj/models/car_model.dart';
 import 'package:car_wash_proj/models/user_model.dart';
+import 'package:car_wash_proj/utils/indicator/loader_indicator.dart';
 import 'package:car_wash_proj/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -49,7 +51,7 @@ class _CarModelScreenState extends ConsumerState<CarModelScreen> {
                   ? b.filteredModels.length
                   : snapshot.data!.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3, mainAxisSpacing: 10, crossAxisSpacing: 5),
+                  crossAxisCount: 3, mainAxisSpacing: 10, crossAxisSpacing: 0),
               itemBuilder: (context, index) {
                 if (snapshot.hasData) {
                   if (_controller.text.isNotEmpty &&
@@ -83,20 +85,26 @@ class _CarModelScreenState extends ConsumerState<CarModelScreen> {
                         onTap: () {
                           log("message");
 
-                          UserModel userModel = UserModel(
-                              name: auth.user!.displayName ?? "Name",
-                              profile: auth.user!.photoURL ??
-                                  "https://firebasestorage.googleapis.com/v0/b/carwash-b17c6.appspot.com/o/car_companies%2Fprofile.png?alt=media&token=e9eda448-92a3-4e1b-9e7b-96bb472bfc3f",
-                              phone: auth.user!.phoneNumber!,
-                              userId: auth.user!.uid);
-
                           CarModel carModel = CarModel(
-                            carComp: carPro.carComp,
-                            carImage: snapshot.data![index]['car_image'],
-                            carName: snapshot.data![index]['car_name'],
-                          );
+                              carComp: carPro.carComp,
+                              carImage: snapshot.data![index]['car_image'],
+                              carName: snapshot.data![index]['car_name'],
+                              isPrime: true);
 
-                          auth.saveUserToDb(userModel, carModel);
+                          if (b.isStartSelection) {
+                            UserModel userModel = UserModel(
+                                name: auth.user!.displayName ?? "Name",
+                                profile: auth.user!.photoURL ??
+                                    "https://firebasestorage.googleapis.com/v0/b/carwash-b17c6.appspot.com/o/car_companies%2Fprofile.png?alt=media&token=e9eda448-92a3-4e1b-9e7b-96bb472bfc3f",
+                                phone: auth.user!.phoneNumber!,
+                                userId: auth.user!.uid);
+                            auth.saveUserToDb(userModel, carModel);
+                          } else {
+                            String a = ref.read(bookingProv).userModel!.userId;
+                            b.addCarToDb(carModel, a);
+                            Loading().witIndicator(
+                                context: context, title: 'Adding A Car');
+                          }
 
                           //  Navigation.instance.navigateTo(CarModelScreen.id.path);
                           // auth.saveUserToDb(, carModel)

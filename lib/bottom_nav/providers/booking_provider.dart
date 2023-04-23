@@ -6,7 +6,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
-import 'package:logger/logger.dart';
 
 final bookingProv = ChangeNotifierProvider((ref) {
   return BookingProvider();
@@ -70,7 +69,7 @@ class BookingProvider with ChangeNotifier {
     _date = dates;
   }
 
-  createOrder(OrderModel orderModel)async {
+  createOrder(OrderModel orderModel) async {
     _streams.orderQuery.doc(orderModel.orderId).set(orderModel.toMap());
     _streams.userQuery
         .doc(_userModel!.userId)

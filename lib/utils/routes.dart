@@ -5,6 +5,7 @@ enum AppRoutes {
   homeScreen("home_screen"),
   orderStatScreen('order_stat_screen'),
   ordersScreen('orders_screen'),
+  aboutScreen('about_screen'),
   serviceDetScreen('service_det_screen'),
   scheduleScreen('schedule_screen'),
   locationScreen('location_screen'),

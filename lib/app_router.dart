@@ -1,3 +1,4 @@
+import 'package:car_wash_proj/bottom_nav/screens/about_screen.dart';
 import 'package:car_wash_proj/bottom_nav/screens/home_screen.dart';
 import 'package:car_wash_proj/bottom_nav/screens/location_screen.dart';
 import 'package:car_wash_proj/bottom_nav/screens/order_stat_screen.dart';
@@ -35,9 +36,11 @@ class AppRouter {
       return pageTransition(const LocationScreen());
     } else if (route.name == OrdersScreen.id.path) {
       return pageTransition(const OrdersScreen());
+    } else if (route.name == ShowerAnimation.id.path) {
+      return pageTransition(const ShowerAnimation());
     } else if (route.name == OrderStatusScreen.id.path) {
       String orderId = route.arguments as String;
-      return pageTransition( OrderStatusScreen(orderId : orderId));
+      return pageTransition(OrderStatusScreen(orderId: orderId));
     } else if (route.name == ScheduleScreen.id.path) {
       ServiceModel serviceModel = route.arguments as ServiceModel;
       return pageTransition(ScheduleScreen(

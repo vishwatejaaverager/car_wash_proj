@@ -14,4 +14,5 @@ class Constants {
   static const hour = 'assets/service/hourglass.png';
   static const like = 'assets/service/like.png';
   static const qstn = 'assets/service/curiosity.png';
+  static const emptyImage = 'assets/intimate/enhaced.png';
 }
