@@ -5,21 +5,25 @@ class CarModel {
   final String? carImage;
   final String? carName;
   final String? carComp;
+  final bool? isPrime;
   CarModel({
     this.carImage,
     this.carName,
     this.carComp,
+    this.isPrime,
   });
 
   CarModel copyWith({
     String? carImage,
     String? carName,
     String? carComp,
+    bool? isPrime,
   }) {
     return CarModel(
       carImage: carImage ?? this.carImage,
       carName: carName ?? this.carName,
       carComp: carComp ?? this.carComp,
+      isPrime: isPrime ?? this.isPrime,
     );
   }
 
@@ -28,6 +32,7 @@ class CarModel {
       'carImage': carImage,
       'carName': carName,
       'carComp': carComp,
+      'isPrime': isPrime,
     };
   }
 
@@ -36,15 +41,19 @@ class CarModel {
       carImage: map['carImage'] != null ? map['carImage'] as String : null,
       carName: map['carName'] != null ? map['carName'] as String : null,
       carComp: map['carComp'] != null ? map['carComp'] as String : null,
+      isPrime: map['isPrime'] != null ? map['isPrime'] as bool : null,
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory CarModel.fromJson(String source) => CarModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory CarModel.fromJson(String source) =>
+      CarModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
-  String toString() => 'CarModel(carImage: $carImage, carName: $carName, carComp: $carComp)';
+  String toString() {
+    return 'CarModel(carImage: $carImage, carName: $carName, carComp: $carComp, isPrime: $isPrime)';
+  }
 
   @override
   bool operator ==(covariant CarModel other) {
@@ -53,9 +62,15 @@ class CarModel {
     return 
       other.carImage == carImage &&
       other.carName == carName &&
-      other.carComp == carComp;
+      other.carComp == carComp &&
+      other.isPrime == isPrime;
   }
 
   @override
-  int get hashCode => carImage.hashCode ^ carName.hashCode ^ carComp.hashCode;
+  int get hashCode {
+    return carImage.hashCode ^
+      carName.hashCode ^
+      carComp.hashCode ^
+      isPrime.hashCode;
+  }
 }

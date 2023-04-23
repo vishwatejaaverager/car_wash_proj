@@ -44,7 +44,7 @@ class _CarCompaniesState extends ConsumerState<CarCompanies> {
             b.setAllCars(data);
             return GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3, mainAxisSpacing: 5, crossAxisSpacing: 5),
+                  crossAxisCount: 3, mainAxisSpacing: 5, crossAxisSpacing: 0),
               itemCount:
                   _controller.text.isNotEmpty ? b.filtered.length : data.length,
               itemBuilder: (BuildContext context, int index) {

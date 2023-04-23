@@ -1,4 +1,4 @@
-import 'package:car_wash_proj/bottom_nav/screens/order_stat_screen.dart';
+import 'package:car_wash_proj/bottom_nav/screens/about_screen.dart';
 import 'package:car_wash_proj/bottom_nav/screens/orders_screen.dart';
 import 'package:car_wash_proj/utils/color.dart';
 import 'package:car_wash_proj/utils/navigation/navigator.dart';
@@ -55,7 +55,9 @@ class CustomNavigation extends ConsumerWidget {
               children: [
                 InkWell(
                   onTap: () {
-                    Navigation.instance.navigateTo(OrderStatusScreen.id.path,args: '1681630335784790');
+                    Navigation.instance.navigateTo(
+                      OrdersScreen.id.path,
+                    );
                   },
                   child: Row(
                     children: [
@@ -112,22 +114,27 @@ class CustomNavigation extends ConsumerWidget {
                   ],
                 ),
                 sbh(24),
-                Row(
-                  children: [
-                    Image.asset(
-                      Constants.info,
-                      scale: 20,
-                      color: Colors.blueGrey,
-                    ),
-                    sbw(24),
-                    const Text(
-                      "About",
-                      style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.black,
-                          fontWeight: FontWeight.w500),
-                    )
-                  ],
+                InkWell(
+                  onTap: () {
+                    Navigation.instance.navigateTo(ShowerAnimation.id.path);
+                  },
+                  child: Row(
+                    children: [
+                      Image.asset(
+                        Constants.info,
+                        scale: 20,
+                        color: Colors.blueGrey,
+                      ),
+                      sbw(24),
+                      const Text(
+                        "About",
+                        style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w500),
+                      )
+                    ],
+                  ),
                 )
               ],
             ),
